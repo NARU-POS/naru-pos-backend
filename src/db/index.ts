@@ -1,12 +1,6 @@
 import "dotenv/config";
 import mongoose from "mongoose";
-import { UserModel } from "@src/db/user.schema";
-import { PostModel } from "@src/db/post.schema";
-import { QuizModel } from "@src/db/quiz.schema";
-import { NewsModel } from "@src/db/news.schema";
-import { BinsModel } from "@src/db/bins.schema";
-import { RobotModel } from "@src/db/robot.schema";
-import { TrashModel } from "@src/db/trash.schema";
+import { MenuModel } from "@src/db/menu.schema";
 
 const DB_URL =
     process.env.MONGODB_URL ||
@@ -22,4 +16,4 @@ if (process.env.NODE_ENV !== "test") {
     );
 }
 
-export { UserModel, QuizModel, TrashModel, NewsModel, BinsModel, PostModel, RobotModel };
+export { MenuModel };
