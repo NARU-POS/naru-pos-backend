@@ -1,0 +1,59 @@
+{
+    "name": "naru-pos-backend",
+    "version": "1.0.0",
+    "main": "./src/server.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc",
+        "start": "node src/server.js",
+        "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+        "test": "cross-env NODE_ENV=test jest --setupFiles dotenv/config --detectOpenHandles --forceExit",
+        "test:ci": "cross-env NODE_ENV=test jest --config ./jest.config.ts --detectOpenHandles --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --watchAll=false --forceExit",
+        "coverage": "cross-env NODE_ENV=test jest --detectOpenHandles --coverage --forceExit"
+    },
+    "dependencies": {
+        "@types/cors": "^2.8.12",
+        "axios": "^0.27.2",
+        "bcrypt": "^5.0.1",
+        "cloudinary": "^1.30.0",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dayjs": "^1.11.3",
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "joi": "^17.6.0",
+        "jsonwebtoken": "^8.5.1",
+        "module-alias": "^2.2.2",
+        "mongoose": "^6.3.5",
+        "multer": "^1.4.5-lts.1",
+        "multer-storage-cloudinary": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^5.0.0",
+        "@types/cookie-parser": "^1.4.3",
+        "@types/express": "^4.17.13",
+        "@types/jest": "^28.1.0",
+        "@types/jsonwebtoken": "^8.5.8",
+        "@types/multer": "^1.4.7",
+        "@types/node": "^17.0.38",
+        "@types/supertest": "^2.0.12",
+        "@typescript-eslint/eslint-plugin": "^5.27.0",
+        "@typescript-eslint/parser": "^5.27.0",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.16.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jest": "^28.1.0",
+        "jest-junit": "^13.2.0",
+        "mongodb-memory-server": "^8.6.0",
+        "prettier": "^2.7.1",
+        "supertest": "^6.2.3",
+        "ts-jest": "^28.0.3",
+        "ts-node": "^10.8.1",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^4.7.2"
+    },
+    "_moduleAliases": {
+        "@src": "src"
+    }
+}
