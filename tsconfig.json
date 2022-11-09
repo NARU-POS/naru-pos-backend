@@ -18,5 +18,5 @@
         "skipLibCheck": true /* Skip type checking all .d.ts files. */
     },
     "include": ["src/**/*", "src/app.ts"],
-    "exclude": ["node_modules", "dist/", "env/", "__tests__", "jest.config.ts"]
+    "exclude": ["node_modules", "dist/", "env/", "src/__tests__", "jest.config.ts"]
 }

@@ -16,7 +16,7 @@ menuController.get(
 
 menuController.get(
     "/menus",
-    wrapAsyncFunc(async (req, res, _next) => {
+    wrapAsyncFunc(async (_req, res, _next) => {
         const foundMenuList = await MenuService.getMenuList();
         res.status(STATUS_200_OK).json(foundMenuList);
     }),
