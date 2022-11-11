@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { IMenu } from "@src/models/db.interface";
-import { MENU_CATEGORY } from "@src/utils/constans";
+import { MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/utils/constans";
 
 const menuSchema = new Schema<IMenu>(
     {
@@ -11,7 +11,11 @@ const menuSchema = new Schema<IMenu>(
         },
         description: {
             type: String,
-            required: true,
+            default: "",
+        },
+        notice: {
+            type: String,
+            default: "unused",
         },
         price: {
             type: Number,
@@ -22,6 +26,20 @@ const menuSchema = new Schema<IMenu>(
             type: String,
             required: true,
             enum: MENU_CATEGORY,
+        },
+        detailCategory: {
+            type: String,
+            enum: MENU_DETAIL_CATEGORY,
+            default: "unused",
+        },
+        status: {
+            type: String,
+            enum: MENU_STATUS,
+            default: "unused",
+        },
+        spicy: {
+            type: Number,
+            default: 0,
         },
         photo_url: {
             type: String,
