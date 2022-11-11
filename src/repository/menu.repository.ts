@@ -2,7 +2,7 @@ import { MenuModel } from "@src/db";
 import { IMenu } from "@src/models/db.interface";
 
 export class Menu {
-    static findCategory(category: string) {
+    static findCategoryMenu(category: string) {
         return MenuModel.find({ category });
     }
 

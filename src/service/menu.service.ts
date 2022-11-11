@@ -4,7 +4,18 @@ import { RequestError } from "@src/middlewares/errorHandler";
 
 export class MenuService {
     static getCategoryMenu(category: string) {
-        return Menu.findCategory(category);
+        return Menu.findCategoryMenu(category);
+    }
+
+    static async getCategoryList() {
+        const menuList: IMenu[] = await Menu.find();
+        return menuList.reduce((acc, menu) => {
+            const filterCategory = Object.assign({}, acc);
+            if (!filterCategory[menu.category]) filterCategory[menu.category] = [];
+            filterCategory[menu.category] = [...filterCategory[menu.category], menu.detailCategory];
+            filterCategory[menu.category] = [...new Set(filterCategory[menu.category])];
+            return filterCategory;
+        }, {} as any);
     }
 
     static getMenuList() {

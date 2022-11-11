@@ -6,6 +6,14 @@ import { STATUS_200_OK, STATUS_201_CREATED } from "@src/utils/statusCode";
 const menuController = Router();
 
 menuController.get(
+    "/menus/category",
+    wrapAsyncFunc(async (_req, res, _next) => {
+        const foundCategory = await MenuService.getCategoryList();
+        res.status(STATUS_200_OK).json(foundCategory);
+    }),
+);
+
+menuController.get(
     "/menus/:category",
     wrapAsyncFunc(async (req, res, _next) => {
         const { category } = req.params;

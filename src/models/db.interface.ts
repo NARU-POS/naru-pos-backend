@@ -1,4 +1,7 @@
+import { Types } from "mongoose";
+
 export interface IMenu {
+    _id: Types.ObjectId;
     name: string;
     description: string;
     notice: string;
@@ -7,5 +10,5 @@ export interface IMenu {
     detailCategory: string;
     spicy: number;
     status: string;
-    photo_url?: string;
+    photo_url: string;
 }
