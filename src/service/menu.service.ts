@@ -3,8 +3,9 @@ import { IMenu } from "@src/models/db.interface";
 import { RequestError } from "@src/middlewares/errorHandler";
 
 export class MenuService {
-    static getCategoryMenu(category: string) {
-        return Menu.findCategoryMenu(category);
+    static getCategoryMenu(mainCategory: string, detailCategory: string) {
+        if (mainCategory === "unused") throw new RequestError("등록되지 않은 카테고리입니다.");
+        return Menu.findCategoryMenu(mainCategory, detailCategory);
     }
 
     static async getCategoryList() {
@@ -16,10 +17,6 @@ export class MenuService {
             filterCategory[menu.category] = [...new Set(filterCategory[menu.category])];
             return filterCategory;
         }, {} as any);
-    }
-
-    static getMenuList() {
-        return Menu.find();
     }
 
     static async addMenu(menuInfo: IMenu) {

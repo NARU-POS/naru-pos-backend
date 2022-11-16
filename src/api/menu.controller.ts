@@ -14,19 +14,11 @@ menuController.get(
 );
 
 menuController.get(
-    "/menus/:category",
+    "/menus/:mainCategory/:detailCategory",
     wrapAsyncFunc(async (req, res, _next) => {
-        const { category } = req.params;
-        const foundCategoryMenu = await MenuService.getCategoryMenu(category);
+        const { mainCategory, detailCategory } = req.params;
+        const foundCategoryMenu = await MenuService.getCategoryMenu(mainCategory, detailCategory);
         res.status(STATUS_200_OK).json(foundCategoryMenu);
-    }),
-);
-
-menuController.get(
-    "/menus",
-    wrapAsyncFunc(async (_req, res, _next) => {
-        const foundMenuList = await MenuService.getMenuList();
-        res.status(STATUS_200_OK).json(foundMenuList);
     }),
 );
 
