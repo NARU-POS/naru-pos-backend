@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
-import { IMenu } from "@src/models/db.interface";
-import { MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/utils/constans";
+import { PREPARING_IMG } from "@src/utils/constants";
+import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/models/db.interface";
 
 const menuSchema = new Schema<IMenu>(
     {
@@ -30,12 +30,12 @@ const menuSchema = new Schema<IMenu>(
         detailCategory: {
             type: String,
             enum: MENU_DETAIL_CATEGORY,
-            default: "unused",
+            default: MENU_DETAIL_CATEGORY.UNUSED,
         },
         status: {
             type: String,
             enum: MENU_STATUS,
-            default: "unused",
+            default: MENU_STATUS.UNUSED,
         },
         spicy: {
             type: Number,
@@ -43,8 +43,7 @@ const menuSchema = new Schema<IMenu>(
         },
         photo_url: {
             type: String,
-            default:
-                "https://res.cloudinary.com/dcahduceu/image/upload/v1663314125/naru/preparation.png",
+            default: PREPARING_IMG,
         },
     },
     { collection: "menu" },

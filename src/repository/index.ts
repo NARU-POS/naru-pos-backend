@@ -1,3 +1,3 @@
-import { Menu } from "@src/repository/menu.repository";
+import { MenuRepository } from "@src/repository/menu.repository";
 
-export { Menu };
+export { MenuRepository };
