@@ -6,6 +6,7 @@
     "scripts": {
         "build": "tsc",
         "start": "node src/server.js",
+        "prestart": "node swagger.js",
         "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
         "test": "cross-env NODE_ENV=test jest --setupFiles dotenv/config --detectOpenHandles --forceExit",
         "test:ci": "cross-env NODE_ENV=test jest --config ./jest.config.ts --detectOpenHandles --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --watchAll=false --forceExit",
@@ -26,9 +27,8 @@
         "mongoose": "^6.3.5",
         "multer": "^1.4.5-lts.1",
         "multer-storage-cloudinary": "^4.0.0",
-        "swagger-cli": "^4.0.4",
-        "swagger-ui-express": "^4.6.0",
-        "yamljs": "^0.3.0"
+        "swagger-autogen": "^2.22.0",
+        "swagger-ui-express": "^4.6.0"
     },
     "devDependencies": {
         "@types/bcrypt": "^5.0.0",
@@ -41,7 +41,6 @@
         "@types/node": "^17.0.38",
         "@types/supertest": "^2.0.12",
         "@types/swagger-ui-express": "^4.1.3",
-        "@types/yamljs": "^0.2.31",
         "@typescript-eslint/eslint-plugin": "^5.27.0",
         "@typescript-eslint/parser": "^5.27.0",
         "cross-env": "^7.0.3",

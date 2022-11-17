@@ -12,7 +12,7 @@ module.exports = {
         node: true,
         jest: true,
     },
-    ignorePatterns: [".eslintrc.js"],
+    ignorePatterns: [".eslintrc.js", "swagger.js"],
     rules: {
         "prettier/prettier": ["error", {}, { endOfLine: "auto" }],
         "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],

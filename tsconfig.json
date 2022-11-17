@@ -17,6 +17,6 @@
         "strict": true /* Enable all strict type-checking options. */,
         "skipLibCheck": true /* Skip type checking all .d.ts files. */
     },
-    "include": ["src/**/*", "src/app.ts", "eslintrc.js", "jest.config.ts"],
+    "include": ["src/**/*", "src/app.ts", "eslintrc.js", "jest.config.ts", "swagger.js"],
     "exclude": ["node_modules", "dist/", "env/"]
 }
