@@ -5,7 +5,7 @@ import { RequestError } from "@src/middlewares/errorHandler";
 export class MenuService {
     static getCategoryMenu(mainCategory: string, detailCategory: string) {
         if (mainCategory === "unused") throw new RequestError("등록되지 않은 카테고리입니다.");
-        return MenuRepository.findCategoryMenu(mainCategory, detailCategory);
+        return MenuRepository.findCategory(mainCategory, detailCategory);
     }
 
     static async getCategoryList() {
@@ -26,13 +26,13 @@ export class MenuService {
     }
 
     static async updateMenu(menuId: string, menuInfo: IMenu) {
-        const updatedMenu = await MenuRepository.updateMenu(menuId, menuInfo);
+        const updatedMenu = await MenuRepository.update(menuId, menuInfo);
         if (!updatedMenu) throw new RequestError("해당 메뉴를 찾을 수 없습니다.");
         return updatedMenu;
     }
 
     static async deleteMenu(menuId: string) {
-        const deletedMenu = await MenuRepository.deleteMenu(menuId);
+        const deletedMenu = await MenuRepository.delete(menuId);
         if (!deletedMenu) throw new RequestError("해당 메뉴를 찾을 수 없습니다.");
         return { message: "삭제가 완료되었습니다." };
     }
