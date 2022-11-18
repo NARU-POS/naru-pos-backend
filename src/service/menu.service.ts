@@ -4,7 +4,6 @@ import { RequestError } from "@src/middlewares/errorHandler";
 
 export class MenuService {
     static getCategoryMenu(mainCategory: string, detailCategory: string) {
-        if (mainCategory === "unused") throw new RequestError("등록되지 않은 카테고리입니다.");
         return MenuRepository.findCategory(mainCategory, detailCategory);
     }
 
