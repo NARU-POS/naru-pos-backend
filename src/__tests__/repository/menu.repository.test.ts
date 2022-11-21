@@ -1,6 +1,6 @@
 import { MenuModel } from "@src/db";
 import { MenuRepository } from "@src/repository";
-import { tempCategory, tempMenu, tempUpdateMenu } from "@src/__tests__/setTestData";
+import { tempCategory, tempMenu, tempUpdateMenu } from "@src/utils/tests/setTestData";
 
 describe("MENU REPOSITORY", () => {
     it("MENU findCategory", async () => {

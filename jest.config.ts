@@ -12,7 +12,7 @@ module.exports = {
     preset: "ts-jest",
     testEnvironment: "node",
     testTimeout: 120000,
-    setupFilesAfterEnv: ["<rootDir>/src/utils/setUpTests.ts"],
+    setupFilesAfterEnv: ["<rootDir>/src/utils/tests/setUpTests.ts"],
     collectCoverage: false,
     moduleNameMapper: {
         "@src/(.*)": "<rootDir>/src/$1",
@@ -20,7 +20,7 @@ module.exports = {
     coverageDirectory: "coverage",
     collectCoverageFrom: ["src/**/*.ts", "!**/node_modules/**"],
     coverageReporters: ["html", "text", "text-summary", "cobertura"],
-    coveragePathIgnorePatterns: ["src/server.ts", "src/db/index.ts"],
+    coveragePathIgnorePatterns: ["src/server.ts", "src/db/index.ts", "src/utils"],
     testMatch: ["**/*.test.ts"],
     clearMocks: true,
     transform: {

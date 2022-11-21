@@ -2,7 +2,7 @@ import { MenuService } from "@src/service";
 import { MenuRepository } from "@src/repository";
 import { RequestError } from "@src/middlewares/errorHandler";
 import { STATUS_400_BADREQUEST } from "@src/utils/statusCode";
-import { tempCategory, tempMenu, tempUpdateMenu } from "@src/__tests__/setTestData";
+import { tempCategory, tempMenu, tempUpdateMenu } from "@src/utils/tests/setTestData";
 
 describe("MENU SERVICE LOGIC", () => {
     it("카테고리에 맞는 메뉴를 반환한다.", async () => {
@@ -50,16 +50,6 @@ describe("MENU SERVICE LOGIC", () => {
 });
 
 describe("MENU SERVICE LOGIC ERROR HANDLING", () => {
-    it("메인카테고리가 unused일 경우 RequestError가 발생한다.", async () => {
-        try {
-            await MenuService.getCategoryMenu("unused", tempCategory.detailCategory);
-        } catch (err: any) {
-            expect(err).toBeInstanceOf(RequestError);
-            expect(err.status).toBe(STATUS_400_BADREQUEST);
-            expect(err.message).toEqual("등록되지 않은 카테고리입니다.");
-        }
-    });
-
     it("메뉴 생성 후 생성된 메뉴가 없으면 RequestError가 발생한다.", async () => {
         MenuRepository.create = jest.fn().mockReturnValue(null);
         try {

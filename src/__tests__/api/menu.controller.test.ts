@@ -1,7 +1,7 @@
 import app from "@src/app";
 import request from "supertest";
 import { STATUS_200_OK, STATUS_201_CREATED } from "@src/utils/statusCode";
-import { tempCategory, tempMenu, tempUpdateMenu } from "@src/__tests__/setTestData";
+import { tempCategory, tempMenu, tempUpdateMenu } from "@src/utils/tests/setTestData";
 
 describe("MENU API", () => {
     it("MENU GET /menus/category 메뉴 카테고리 목록을 응답받는다.", async () => {
