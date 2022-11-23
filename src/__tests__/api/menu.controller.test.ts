@@ -1,8 +1,8 @@
 import app from "@src/app";
 import request from "supertest";
-import { Menu } from "@src/models/menu.model";
+import { Menu } from "@src/models";
+import { MENU_CATEGORY, MENU_DETAIL_CATEGORY } from "@src/interfaces";
 import { STATUS_200_OK, STATUS_201_CREATED } from "@src/utils/statusCode";
-import { MENU_CATEGORY, MENU_DETAIL_CATEGORY } from "@src/interfaces/menu.interface";
 
 describe("MENU API", () => {
     const tempMenu = new Menu({

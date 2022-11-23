@@ -1,6 +1,6 @@
-import { Menu } from "@src/models/menu.model";
+import { Menu } from "@src/models";
+import { IMenu } from "@src/interfaces";
 import { MenuRepository } from "@src/repository";
-import { IMenu } from "@src/interfaces/menu.interface";
 import { RequestError } from "@src/middlewares/errorHandler";
 
 export class MenuService {

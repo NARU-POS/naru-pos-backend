@@ -1,9 +1,9 @@
 import { MenuService } from "@src/service";
-import { Menu } from "@src/models/menu.model";
+import { Menu } from "@src/models";
 import { MenuRepository } from "@src/repository";
 import { RequestError } from "@src/middlewares/errorHandler";
 import { STATUS_400_BADREQUEST } from "@src/utils/statusCode";
-import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY } from "@src/interfaces/menu.interface";
+import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY } from "@src/interfaces";
 
 describe("MENU SERVICE LOGIC", () => {
     const tempMenu = new Menu({

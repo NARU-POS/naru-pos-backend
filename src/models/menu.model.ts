@@ -1,11 +1,6 @@
-import { PREPARING_IMG } from "@src/utils/constants";
-import {
-    IMenu,
-    MENU_CATEGORY,
-    MENU_DETAIL_CATEGORY,
-    MENU_STATUS,
-} from "@src/interfaces/menu.interface";
 import { Types } from "mongoose";
+import { PREPARING_IMG } from "@src/utils/constants";
+import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/interfaces";
 
 export class Menu implements IMenu {
     readonly _id!: Types.ObjectId;

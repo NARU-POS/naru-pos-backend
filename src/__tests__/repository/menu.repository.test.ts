@@ -1,7 +1,7 @@
+import { Menu } from "@src/models";
 import { MenuModel } from "@src/db";
-import { Menu } from "@src/models/menu.model";
 import { MenuRepository } from "@src/repository";
-import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY } from "@src/interfaces/menu.interface";
+import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY } from "@src/interfaces";
 
 describe("MENU REPOSITORY", () => {
     const tempMenu = new Menu({
