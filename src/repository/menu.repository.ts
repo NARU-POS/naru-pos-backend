@@ -1,8 +1,8 @@
 import { MenuModel } from "@src/db";
-import { IMenu } from "@src/models/db.interface";
+import { IMenu } from "@src/interfaces/menu.interface";
 
 export class MenuRepository {
-    static findCategory(mainCategory: string, detailCategory: string) {
+    static findCategoryMenu(mainCategory: string, detailCategory: string) {
         return MenuModel.find({ category: mainCategory, detailCategory });
     }
 

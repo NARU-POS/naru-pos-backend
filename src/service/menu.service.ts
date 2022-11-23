@@ -1,10 +1,11 @@
+import { Menu } from "@src/models/menu.model";
 import { MenuRepository } from "@src/repository";
-import { IMenu } from "@src/models/db.interface";
+import { IMenu } from "@src/interfaces/menu.interface";
 import { RequestError } from "@src/middlewares/errorHandler";
 
 export class MenuService {
     static getCategoryMenu(mainCategory: string, detailCategory: string) {
-        return MenuRepository.findCategory(mainCategory, detailCategory);
+        return MenuRepository.findCategoryMenu(mainCategory, detailCategory);
     }
 
     static async getCategoryList() {
@@ -19,13 +20,15 @@ export class MenuService {
     }
 
     static async addMenu(menuInfo: IMenu) {
-        const createdMenu = await MenuRepository.create(menuInfo);
+        const createMenu = new Menu(menuInfo);
+        const createdMenu = await MenuRepository.create(createMenu);
         if (!createdMenu) throw new RequestError("메뉴 등록에 실패하였습니다.");
         return createdMenu;
     }
 
     static async updateMenu(menuId: string, menuInfo: IMenu) {
-        const updatedMenu = await MenuRepository.update(menuId, menuInfo);
+        const updateMenu = new Menu(menuInfo);
+        const updatedMenu = await MenuRepository.update(menuId, updateMenu);
         if (!updatedMenu) throw new RequestError("해당 메뉴를 찾을 수 없습니다.");
         return updatedMenu;
     }

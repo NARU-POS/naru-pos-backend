@@ -12,7 +12,7 @@ module.exports = {
     preset: "ts-jest",
     testEnvironment: "node",
     testTimeout: 120000,
-    setupFilesAfterEnv: ["<rootDir>/src/utils/tests/setUpTests.ts"],
+    setupFilesAfterEnv: ["<rootDir>/src/utils/setUpTests.ts"],
     collectCoverage: false,
     moduleNameMapper: {
         "@src/(.*)": "<rootDir>/src/$1",
