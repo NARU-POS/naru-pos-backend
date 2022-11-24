@@ -7,7 +7,9 @@ export const bodyValidator =
     (req, res, next) => {
         const { error } = schema.validate(req.body, { allowUnknown: true });
         if (error) {
-            const { status, message } = new RequestError("요청 데이터 형식이 옳바르지 않습니다.");
+            const { status, message } = new RequestError(
+                "요청 데이터(Body) 형식이 옳바르지 않습니다.",
+            );
             return res.status(status).json({ message });
         }
         return next();
@@ -18,7 +20,9 @@ export const paramsValidator =
     (req, res, next) => {
         const { error } = schema.validate(req.params);
         if (error) {
-            const { status, message } = new RequestError("요청 데이터 형식이 옳바르지 않습니다.");
+            const { status, message } = new RequestError(
+                "요청 데이터(Params) 형식이 옳바르지 않습니다.",
+            );
             return res.status(status).json({ message });
         }
         return next();
@@ -29,7 +33,9 @@ export const queryStringValidator =
     (req, res, next) => {
         const { error } = schema.validate(req.query);
         if (error) {
-            const { status, message } = new RequestError("요청 데이터 형식이 옳바르지 않습니다.");
+            const { status, message } = new RequestError(
+                "요청 데이터(QueryString) 형식이 옳바르지 않습니다.",
+            );
             return res.status(status).json({ message });
         }
         return next();

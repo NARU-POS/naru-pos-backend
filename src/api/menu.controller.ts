@@ -2,6 +2,13 @@ import { Router } from "express";
 import { MenuService } from "@src/service";
 import wrapAsyncFunc from "@src/utils/catchAsync";
 import { STATUS_200_OK, STATUS_201_CREATED } from "@src/utils/statusCode";
+import { bodyValidator, paramsValidator } from "@src/middlewares/requestValidator";
+import {
+    menuBodySchema,
+    menuPutBodySchema,
+    menuCategorySchema,
+    menuIdSchema,
+} from "@src/utils/requestValidate/menu.validate";
 
 const menuController = Router();
 
@@ -23,6 +30,7 @@ menuController.get(
 
 menuController.get(
     "/menus/:mainCategory/:detailCategory",
+    paramsValidator(menuCategorySchema),
     wrapAsyncFunc(async (req, res, _next) => {
         /*
             #swagger.tags = ["menu"]
@@ -52,6 +60,7 @@ menuController.get(
 
 menuController.post(
     "/menus",
+    bodyValidator(menuBodySchema),
     wrapAsyncFunc(async (req, res, _next) => {
         /*
             #swagger.tags = ["menu"]
@@ -74,6 +83,8 @@ menuController.post(
 
 menuController.put(
     "/menus/:menuId",
+    paramsValidator(menuIdSchema),
+    bodyValidator(menuPutBodySchema),
     wrapAsyncFunc(async (req, res, _next) => {
         /*
             #swagger.tags = ["menu"]
@@ -103,6 +114,7 @@ menuController.put(
 
 menuController.delete(
     "/menus/:menuId",
+    paramsValidator(menuIdSchema),
     wrapAsyncFunc(async (req, res, _next) => {
         /*  #swagger.tags = ["menu"]
             #swagger.description = "메뉴 삭제"
