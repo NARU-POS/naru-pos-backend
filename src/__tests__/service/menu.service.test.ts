@@ -3,7 +3,7 @@ import { Menu } from "@src/models";
 import { MenuRepository } from "@src/repository";
 import { RequestError } from "@src/middlewares/errorHandler";
 import { STATUS_400_BADREQUEST } from "@src/utils/statusCode";
-import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY } from "@src/interfaces";
+import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/interfaces";
 
 describe("MENU SERVICE LOGIC", () => {
     const tempMenu = new Menu({
@@ -12,6 +12,8 @@ describe("MENU SERVICE LOGIC", () => {
         price: 10000,
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.CREAM,
+        spicy: 0,
+        status: MENU_STATUS.BEST,
     });
 
     const tempCategory = {
@@ -25,6 +27,8 @@ describe("MENU SERVICE LOGIC", () => {
         price: 12000,
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.TOMATO,
+        spicy: 1,
+        status: MENU_STATUS.NEW,
     });
 
     const testData: { createdMenu?: IMenu } = {};
@@ -79,6 +83,8 @@ describe("MENU SERVICE LOGIC ERROR HANDLING", () => {
         price: 10000,
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.CREAM,
+        spicy: 0,
+        status: MENU_STATUS.BEST,
     });
 
     const tempUpdateMenu = new Menu({
@@ -87,6 +93,8 @@ describe("MENU SERVICE LOGIC ERROR HANDLING", () => {
         price: 12000,
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.TOMATO,
+        spicy: 1,
+        status: MENU_STATUS.NEW,
     });
 
     it("메뉴 생성 후 생성된 메뉴가 없으면 RequestError가 발생한다.", async () => {

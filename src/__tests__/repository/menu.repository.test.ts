@@ -1,7 +1,7 @@
 import { Menu } from "@src/models";
 import { MenuModel } from "@src/db";
 import { MenuRepository } from "@src/repository";
-import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY } from "@src/interfaces";
+import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/interfaces";
 
 describe("MENU REPOSITORY", () => {
     const tempMenu = new Menu({
@@ -10,6 +10,8 @@ describe("MENU REPOSITORY", () => {
         price: 10000,
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.CREAM,
+        spicy: 0,
+        status: MENU_STATUS.BEST,
     });
 
     const tempCategory = {
@@ -23,6 +25,8 @@ describe("MENU REPOSITORY", () => {
         price: 12000,
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.TOMATO,
+        spicy: 1,
+        status: MENU_STATUS.NEW,
     });
 
     const testData: { createdMenu?: IMenu } = {};

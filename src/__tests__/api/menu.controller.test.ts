@@ -1,8 +1,8 @@
 import app from "@src/app";
 import request from "supertest";
 import { Menu } from "@src/models";
-import { MENU_CATEGORY, MENU_DETAIL_CATEGORY } from "@src/interfaces";
 import { STATUS_200_OK, STATUS_201_CREATED } from "@src/utils/statusCode";
+import { MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/interfaces";
 
 describe("MENU API", () => {
     const tempMenu = new Menu({
@@ -11,6 +11,8 @@ describe("MENU API", () => {
         price: 10000,
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.CREAM,
+        spicy: 0,
+        status: MENU_STATUS.BEST,
     });
 
     const tempCategory = {
@@ -24,6 +26,8 @@ describe("MENU API", () => {
         price: 12000,
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.TOMATO,
+        spicy: 1,
+        status: MENU_STATUS.NEW,
     });
 
     it("MENU GET /menus/category 메뉴 카테고리 목록을 응답받는다.", async () => {

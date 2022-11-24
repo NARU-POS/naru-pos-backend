@@ -20,9 +20,9 @@ export class Menu implements IMenu {
         notice = "unused",
         price,
         category,
-        detailCategory = MENU_DETAIL_CATEGORY.UNUSED,
-        spicy = 0,
-        status = MENU_STATUS.UNUSED,
+        detailCategory,
+        spicy,
+        status,
         photo_url = PREPARING_IMG,
     }: IMenu) {
         this.name = name;

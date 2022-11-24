@@ -51,6 +51,8 @@ const doc = {
             price: "5500",
             detailCategory: "hot",
             category: "tea",
+            spicy: 0,
+            status: "unused",
         },
         postMenuResponse: {
             name: "수제레몬차(HOT)",

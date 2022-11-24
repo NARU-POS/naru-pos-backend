@@ -7,9 +7,9 @@ export interface IMenu {
     notice?: string;
     price: number;
     category: MENU_CATEGORY;
-    detailCategory?: MENU_DETAIL_CATEGORY;
-    spicy?: number;
-    status?: MENU_STATUS;
+    detailCategory: MENU_DETAIL_CATEGORY;
+    spicy: number;
+    status: MENU_STATUS;
     photo_url?: string;
 }
 
