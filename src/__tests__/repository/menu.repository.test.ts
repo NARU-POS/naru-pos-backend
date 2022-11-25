@@ -1,10 +1,12 @@
-import { Menu } from "@src/models";
 import { MenuModel } from "@src/db";
 import { MenuRepository } from "@src/repository";
-import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/interfaces";
+import { ICategory, IMenu } from "@src/interfaces/menu.interface";
+import { MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/interfaces";
 
 describe("MENU REPOSITORY", () => {
-    const tempMenu = new Menu({
+    const mockRepository = new MenuRepository();
+
+    const mockMenu = {
         name: "통새우 크림파스타",
         description: "맛있는 크림파스타",
         price: 10000,
@@ -12,14 +14,14 @@ describe("MENU REPOSITORY", () => {
         detailCategory: MENU_DETAIL_CATEGORY.CREAM,
         spicy: 0,
         status: MENU_STATUS.BEST,
-    });
+    };
 
     const tempCategory = {
         mainCategory: "pasta",
         detailCategory: "cream",
     };
 
-    const tempUpdateMenu = new Menu({
+    const mockUpdateMenu = {
         name: "씨푸드 토마토파스타",
         description: "해산물이 풍부한 토마토 파스타",
         price: 12000,
@@ -27,49 +29,49 @@ describe("MENU REPOSITORY", () => {
         detailCategory: MENU_DETAIL_CATEGORY.TOMATO,
         spicy: 1,
         status: MENU_STATUS.NEW,
-    });
+    };
 
-    const testData: { createdMenu?: IMenu } = {};
+    const mockCreated: { data?: IMenu } = {};
     beforeEach(async () => {
-        testData.createdMenu = await MenuRepository.create(tempMenu);
+        mockCreated.data = await mockRepository.create(mockMenu);
     });
 
     it("MENU findCategoryMenu", async () => {
-        const foundCategoryMenu = await MenuRepository.findCategoryMenu(
-            tempCategory.mainCategory,
-            tempCategory.detailCategory,
-        );
+        const foundCategoryMenu = await mockRepository.find({
+            category: tempCategory.mainCategory,
+            detailCategory: tempCategory.detailCategory,
+        } as ICategory);
         expect(foundCategoryMenu).toHaveLength(1);
-        expect(foundCategoryMenu[0]).toMatchObject(tempMenu);
+        expect(foundCategoryMenu[0]).toMatchObject(mockMenu);
     });
 
     it("MENU find", async () => {
-        const foundMenuList = await MenuRepository.find();
+        const foundMenuList = await mockRepository.findAll();
         expect(foundMenuList).toHaveLength(1);
-        expect(foundMenuList[0]).toMatchObject(tempMenu);
+        expect(foundMenuList[0]).toMatchObject(mockMenu);
     });
 
     it("MENU create", async () => {
-        expect(testData.createdMenu).toHaveProperty("_id");
-        expect(testData.createdMenu).toMatchObject(tempMenu);
+        expect(mockCreated.data).toHaveProperty("_id");
+        expect(mockCreated.data).toMatchObject(mockMenu);
     });
 
     it("MENU update", async () => {
         const spyFn = jest.spyOn(MenuModel, "findByIdAndUpdate");
-        const updatedMenu = await MenuRepository.update(
-            testData?.createdMenu?._id?.toString() as string,
-            tempUpdateMenu,
+        const updatedMenu = await mockRepository.update(
+            mockCreated?.data?._id?.toString() as string,
+            mockUpdateMenu,
         );
-        expect(updatedMenu).toMatchObject(tempUpdateMenu);
+        expect(updatedMenu).toMatchObject(mockUpdateMenu);
         expect(spyFn).toHaveBeenCalledTimes(1);
     });
 
     it("MENU delete", async () => {
         const spyFn = jest.spyOn(MenuModel, "findByIdAndDelete");
-        const deletedMenu = await MenuRepository.delete(
-            testData?.createdMenu?._id?.toString() as string,
+        const deletedMenu = await mockRepository.delete(
+            mockCreated?.data?._id?.toString() as string,
         );
-        expect(deletedMenu).toMatchObject(tempMenu);
+        expect(deletedMenu).toMatchObject(mockMenu);
         expect(spyFn).toHaveBeenCalledTimes(1);
     });
 });

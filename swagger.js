@@ -88,6 +88,20 @@ const doc = {
         },
         deleteMenuId: "637615eff40a91d94e608794",
         deleteMenuResponse: {
+            deletedMenu: {
+                _id: "6380a14ec6a7094c8c1bbca3",
+                name: "통새우 크림파스타",
+                description: "맛있는 크림파스타",
+                notice: "unused",
+                price: 10000,
+                category: "pasta",
+                detailCategory: "cream",
+                status: "BEST",
+                spicy: 0,
+                photo_url:
+                    "https://res.cloudinary.com/dcahduceu/image/upload/v1663314125/naru/preparation.png",
+                __v: 0,
+            },
             message: "삭제가 완료되었습니다.",
         },
     },

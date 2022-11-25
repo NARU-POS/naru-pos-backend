@@ -13,6 +13,11 @@ export interface IMenu {
     photo_url?: string;
 }
 
+export interface ICategory {
+    category: MENU_CATEGORY;
+    detailCategory: MENU_DETAIL_CATEGORY;
+}
+
 export enum MENU_CATEGORY {
     STAKE = "stake",
     PASTA = "pasta",
