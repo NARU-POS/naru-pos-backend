@@ -20,10 +20,10 @@ export interface ICategory {
 
 export enum MENU_CATEGORY {
     STAKE = "stake",
-    PASTA = "pasta",
     PIZZA = "pizza",
-    RISOTTO = "risotto",
     SALAD = "salad",
+    PASTA = "pasta",
+    RISOTTO = "risotto",
     COFFEE = "coffee",
     DRINK = "drink",
     BEERANDWINE = "beer & wine",
@@ -39,6 +39,8 @@ export enum MENU_DETAIL_CATEGORY {
     ICE = "ice",
     HOT = "hot",
 }
+
+export type VisualizationCategory = { [key in MENU_CATEGORY]: string[] };
 
 export enum MENU_STATUS {
     UNUSED = "unused",

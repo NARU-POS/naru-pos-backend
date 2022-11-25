@@ -25,6 +25,7 @@ describe("MENU REPOSITORY", () => {
         name: "씨푸드 토마토파스타",
         description: "해산물이 풍부한 토마토 파스타",
         price: 12000,
+        notice: "unused",
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.TOMATO,
         spicy: 1,
@@ -46,9 +47,10 @@ describe("MENU REPOSITORY", () => {
     });
 
     it("MENU find", async () => {
-        const foundMenuList = await mockRepository.findAll();
+        const foundMenuList = await mockRepository.findByCategory();
         expect(foundMenuList).toHaveLength(1);
-        expect(foundMenuList[0]).toMatchObject(mockMenu);
+        expect(foundMenuList[0]).toHaveProperty("category");
+        expect(foundMenuList[0]).toHaveProperty("detailCategory");
     });
 
     it("MENU create", async () => {

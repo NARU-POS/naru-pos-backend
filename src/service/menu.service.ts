@@ -1,6 +1,6 @@
 import { IMenu } from "@src/interfaces";
 import { MenuRepository } from "@src/repository";
-import { ICategory } from "@src/interfaces/menu.interface";
+import { ICategory, MENU_CATEGORY, VisualizationCategory } from "@src/interfaces/menu.interface";
 
 export class MenuService {
     private readonly menuRepository = new MenuRepository();
@@ -10,14 +10,15 @@ export class MenuService {
     }
 
     async getCategoryList() {
-        const menuList: IMenu[] = await this.menuRepository.findAll();
-        return menuList.reduce((acc, menu) => {
-            const filterCategory = Object.assign({}, acc);
-            if (!filterCategory[menu.category]) filterCategory[menu.category] = [];
-            filterCategory[menu.category] = [...filterCategory[menu.category], menu.detailCategory];
-            filterCategory[menu.category] = [...new Set(filterCategory[menu.category])];
-            return filterCategory;
-        }, {} as any);
+        const categoryList = await this.menuRepository.findByCategory();
+
+        // 데이터 가공 및 순서 정렬
+        return Object.values(MENU_CATEGORY).reduce((acc, key) => {
+            const categoryVisualization = Object.assign({}, acc);
+            const currentKeyData = categoryList.find((data) => data.category === key);
+            categoryVisualization[key] = currentKeyData?.detailCategory;
+            return categoryVisualization;
+        }, {} as VisualizationCategory);
     }
 
     addMenu(menuInfo: IMenu) {

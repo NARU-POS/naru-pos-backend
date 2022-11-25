@@ -20,7 +20,7 @@ module.exports = {
     coverageDirectory: "coverage",
     collectCoverageFrom: ["src/**/*.ts", "!**/node_modules/**"],
     coverageReporters: ["html", "text", "text-summary", "cobertura"],
-    coveragePathIgnorePatterns: ["src/server.ts", "src/db/index.ts", "src/utils"],
+    coveragePathIgnorePatterns: ["src/server.ts", "src/db/index.ts"],
     testMatch: ["**/*.test.ts"],
     clearMocks: true,
     transform: {

@@ -48,7 +48,7 @@ const doc = {
         pathDetailCategory: "tomato",
         postMenuRequest: {
             name: "수제레몬차(HOT)",
-            price: "5500",
+            price: 5500,
             detailCategory: "hot",
             category: "tea",
             spicy: 0,
@@ -70,7 +70,16 @@ const doc = {
         },
         pathPutMenu: "637615eff40a91d94e608794",
         putMenuRequest: {
+            name: "수제레몬차(HOT)",
+            description: "",
+            notice: "unused",
             price: 10000,
+            detailCategory: "hot",
+            category: "tea",
+            spicy: 0,
+            status: "unused",
+            photo_url:
+                "https://res.cloudinary.com/dcahduceu/image/upload/v1663314125/naru/preparation.png",
         },
         putMenuResponse: {
             _id: "637615eff40a91d94e608794",

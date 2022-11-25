@@ -24,6 +24,7 @@ describe("MENU SERVICE LOGIC", () => {
         name: "씨푸드 토마토파스타",
         description: "해산물이 풍부한 토마토 파스타",
         price: 12000,
+        notice: "unused",
         category: MENU_CATEGORY.PASTA,
         detailCategory: MENU_DETAIL_CATEGORY.TOMATO,
         spicy: 1,
@@ -48,8 +49,8 @@ describe("MENU SERVICE LOGIC", () => {
     it("카테고리 목록을 반환한다.", async () => {
         const categoryList = await mockService.getCategoryList();
         expect(categoryList).toHaveProperty(mockMenu.category);
-        expect(categoryList.pasta).toHaveLength(1);
-        expect(categoryList.pasta[0]).toEqual(mockMenu.detailCategory);
+        expect(categoryList[mockMenu.category]).toHaveLength(1);
+        expect(categoryList[mockMenu.category][0]).toEqual(mockMenu.detailCategory);
     });
 
     it("메뉴를 생성한다.", async () => {

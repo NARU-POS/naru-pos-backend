@@ -23,6 +23,43 @@ class MenuController {
     }
 
     async getCategory(_req: Request, res: Response, _next: NextFunction) {
+        const foundCategory = await this.menuService.getCategoryList();
+        res.status(STATUS_200_OK).json(foundCategory);
+    }
+
+    async getCategoryMenu(req: Request, res: Response, _next: NextFunction) {
+        const { mainCategory, detailCategory } = req.params;
+        const foundCategoryMenu = await this.menuService.getCategoryMenuList({
+            category: mainCategory,
+            detailCategory,
+        } as ICategory);
+        res.status(STATUS_200_OK).json(foundCategoryMenu);
+    }
+
+    async createMenu(req: Request, res: Response, _next: NextFunction) {
+        const createdMenu = await this.menuService.addMenu(req.body);
+        res.status(STATUS_201_CREATED).json(createdMenu);
+    }
+
+    async editMenu(req: Request, res: Response, _next: NextFunction) {
+        const { menuId } = req.params;
+        const updatedMenu = await this.menuService.updateMenu(menuId, req.body);
+        res.status(STATUS_200_OK).json(updatedMenu);
+    }
+
+    async deleteMenu(req: Request, res: Response, _next: NextFunction) {
+        const { menuId } = req.params;
+        const deletedMenu = await this.menuService.deleteMenu(menuId);
+        res.status(STATUS_200_OK).json({ deletedMenu, message: "삭제가 완료되었습니다." });
+    }
+}
+
+const menuController = Router();
+const menu = new MenuController();
+
+menuController.get(
+    "/menus/category",
+    wrapAsyncFunc(
         /*
             #swagger.tags = ["menu"]
             #swagger.description = "메뉴 카테고리 조회"
@@ -31,11 +68,13 @@ class MenuController {
                 description: "메뉴들의 카테고리와 세부 카테고리를 반환"
             }
          */
-        const foundCategory = await this.menuService.getCategoryList();
-        res.status(STATUS_200_OK).json(foundCategory);
-    }
-
-    async getCategoryMenu(req: Request, res: Response, _next: NextFunction) {
+        menu.getCategory,
+    ),
+);
+menuController.get(
+    "/menus/:mainCategory/:detailCategory",
+    paramsValidator(menuCategorySchema),
+    wrapAsyncFunc(
         /*
             #swagger.tags = ["menu"]
             #swagger.description = "카테고리에 맞는 메뉴 조회"
@@ -56,21 +95,22 @@ class MenuController {
                 description: "카테고리에 맞는 메뉴 목록을 반환"
             }
          */
-        const { mainCategory, detailCategory } = req.params;
-        const foundCategoryMenu = await this.menuService.getCategoryMenuList({
-            category: mainCategory,
-            detailCategory,
-        } as ICategory);
-        res.status(STATUS_200_OK).json(foundCategoryMenu);
-    }
-
-    async createMenu(req: Request, res: Response, _next: NextFunction) {
+        menu.getCategoryMenu,
+    ),
+);
+menuController.post(
+    "/menus",
+    bodyValidator(menuBodySchema),
+    wrapAsyncFunc(
         /*
             #swagger.tags = ["menu"]
             #swagger.description = "메뉴 생성"
             #swagger.parameters["body"] = {
                 in: "body",
-                description: "생성하고자 하는 메뉴의 정보를 Request Body에 담아 요청",
+                description: "
+                    생성하고자 하는 메뉴의 정보를 Request Body에 담아 요청\n
+                    아래 예제에 있는 필드는 필수로 보내야 함
+                ",
                 required: true,
                 schema: { $ref: "#/definitions/postMenuRequest" }
             }
@@ -79,11 +119,14 @@ class MenuController {
                 description: "생성된 메뉴 정보를 반환"
             }
          */
-        const createdMenu = await this.menuService.addMenu(req.body);
-        res.status(STATUS_201_CREATED).json(createdMenu);
-    }
-
-    async editMenu(req: Request, res: Response, _next: NextFunction) {
+        menu.createMenu,
+    ),
+);
+menuController.put(
+    "/menus/:menuId",
+    paramsValidator(menuIdSchema),
+    bodyValidator(menuPutBodySchema),
+    wrapAsyncFunc(
         /*
             #swagger.tags = ["menu"]
             #swagger.description = "메뉴 수정"
@@ -95,7 +138,10 @@ class MenuController {
             }
             #swagger.parameters["body"] = {
                 in: "body",
-                description: "수정하고자 하는 메뉴의 정보를 Request Body에 담아 요청",
+                description: "
+                    수정하고자 하는 메뉴의 정보를 Request Body에 담아 요청\n
+                    아래 예제에 있는 필드는 필수로 보내야 함
+                ",
                 required: true,
                 schema: { $ref: "#/definitions/putMenuRequest" }
             }
@@ -104,12 +150,13 @@ class MenuController {
                 description: "수정된 메뉴 정보를 반환"
             }
          */
-        const { menuId } = req.params;
-        const updatedMenu = await this.menuService.updateMenu(menuId, req.body);
-        res.status(STATUS_200_OK).json(updatedMenu);
-    }
-
-    async deleteMenu(req: Request, res: Response, _next: NextFunction) {
+        menu.editMenu,
+    ),
+);
+menuController.delete(
+    "/menus/:menuId",
+    paramsValidator(menuIdSchema),
+    wrapAsyncFunc(
         /*  #swagger.tags = ["menu"]
             #swagger.description = "메뉴 삭제"
             #swagger.parameters["menuId"] = {
@@ -123,32 +170,8 @@ class MenuController {
                 description: "삭제 메시지 및 삭제된 데이터 반환"
             }
         */
-        const { menuId } = req.params;
-        const deletedMenu = await this.menuService.deleteMenu(menuId);
-        res.status(STATUS_200_OK).json({ deletedMenu, message: "삭제가 완료되었습니다." });
-    }
-}
-
-const menuController = Router();
-const menu = new MenuController();
-
-menuController.get("/menus/category", wrapAsyncFunc(menu.getCategory));
-menuController.get(
-    "/menus/:mainCategory/:detailCategory",
-    paramsValidator(menuCategorySchema),
-    wrapAsyncFunc(menu.getCategoryMenu),
-);
-menuController.post("/menus", bodyValidator(menuBodySchema), wrapAsyncFunc(menu.createMenu));
-menuController.put(
-    "/menus/:menuId",
-    paramsValidator(menuIdSchema),
-    bodyValidator(menuPutBodySchema),
-    wrapAsyncFunc(menu.editMenu),
-);
-menuController.delete(
-    "/menus/:menuId",
-    paramsValidator(menuIdSchema),
-    wrapAsyncFunc(menu.deleteMenu),
+        menu.deleteMenu,
+    ),
 );
 
 export default menuController;
