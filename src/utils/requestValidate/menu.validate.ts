@@ -33,5 +33,7 @@ export const menuBodySchema = Joi.object({
 });
 
 export const menuPutBodySchema = menuBodySchema.keys({
+    description: Joi.string().required(),
+    notice: Joi.string().required(),
     photo_url: Joi.string().min(67).required(),
 });

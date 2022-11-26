@@ -7,18 +7,23 @@ export interface IMenu {
     notice?: string;
     price: number;
     category: MENU_CATEGORY;
-    detailCategory?: MENU_DETAIL_CATEGORY;
-    spicy?: number;
-    status?: MENU_STATUS;
+    detailCategory: MENU_DETAIL_CATEGORY;
+    spicy: number;
+    status: MENU_STATUS;
     photo_url?: string;
+}
+
+export interface ICategory {
+    category: MENU_CATEGORY;
+    detailCategory: MENU_DETAIL_CATEGORY;
 }
 
 export enum MENU_CATEGORY {
     STAKE = "stake",
-    PASTA = "pasta",
     PIZZA = "pizza",
-    RISOTTO = "risotto",
     SALAD = "salad",
+    PASTA = "pasta",
+    RISOTTO = "risotto",
     COFFEE = "coffee",
     DRINK = "drink",
     BEERANDWINE = "beer & wine",
@@ -34,6 +39,8 @@ export enum MENU_DETAIL_CATEGORY {
     ICE = "ice",
     HOT = "hot",
 }
+
+export type VisualizationCategory = { [key in MENU_CATEGORY]: string[] };
 
 export enum MENU_STATUS {
     UNUSED = "unused",

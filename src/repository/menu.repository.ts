@@ -1,24 +1,36 @@
 import { MenuModel } from "@src/db";
 import { IMenu } from "@src/interfaces";
+import { ICategory } from "@src/interfaces/menu.interface";
 
 export class MenuRepository {
-    static findCategoryMenu(mainCategory: string, detailCategory: string) {
-        return MenuModel.find({ category: mainCategory, detailCategory });
+    private readonly menuModel = MenuModel;
+
+    find(searchData: ICategory) {
+        return this.menuModel.find(searchData).exec();
     }
 
-    static find() {
-        return MenuModel.find();
+    findByCategory() {
+        return this.menuModel.aggregate([
+            {
+                $group: {
+                    _id: "$category",
+                    detailCategory: { $addToSet: "$detailCategory" },
+                },
+            },
+            { $project: { _id: 0, category: "$_id", detailCategory: 1 } },
+            { $sort: { category: -1 } },
+        ]);
     }
 
-    static create(menuInfo: IMenu) {
-        return MenuModel.create(menuInfo);
+    create(menuInfo: IMenu) {
+        return this.menuModel.create(menuInfo);
     }
 
-    static update(menuId: string, menuInfo: IMenu) {
-        return MenuModel.findByIdAndUpdate(menuId, menuInfo, { new: true });
+    update(menuId: string, menuInfo: IMenu) {
+        return this.menuModel.findByIdAndUpdate(menuId, menuInfo, { new: true }).exec();
     }
 
-    static delete(menuId: string) {
-        return MenuModel.findByIdAndDelete(menuId);
+    delete(menuId: string) {
+        return this.menuModel.findByIdAndDelete(menuId).exec();
     }
 }

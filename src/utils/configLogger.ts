@@ -57,10 +57,10 @@ export const logger = winston.createLogger({
             zippedArchive: true,
         }),
         new winstonDaily({
-            level: "warn",
+            level: "http",
             datePattern: "YYYY-MM-DD",
-            dirname: logDir + "/warn",
-            filename: `%DATE%.warn.log`,
+            dirname: logDir + "/http",
+            filename: `%DATE%.http.log`,
             maxFiles: 15,
             zippedArchive: true,
         }),
