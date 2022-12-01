@@ -9,6 +9,10 @@ export class MenuRepository {
         return this.menuModel.find(searchData).exec();
     }
 
+    isFindNameExists(menuName: string) {
+        return this.menuModel.exists({ name: menuName }).exec();
+    }
+
     findByCategory() {
         return this.menuModel.aggregate([
             {

@@ -1,5 +1,6 @@
 import { IMenu } from "@src/interfaces";
 import { MenuRepository } from "@src/repository";
+import { RequestError } from "@src/middlewares/errorHandler";
 import { ICategory, MENU_CATEGORY, VisualizationCategory } from "@src/interfaces/menu.interface";
 
 export class MenuService {
@@ -21,18 +22,22 @@ export class MenuService {
         }, {} as VisualizationCategory);
     }
 
-    /**
-     * TODO createMenu, updateMenu, deleteMenu 에러 핸들링
-     */
-    createMenu(menuInfo: IMenu) {
-        return this.menuRepository.create(menuInfo);
+    async createMenu(menuInfo: IMenu) {
+        const foundMenuName = await this.menuRepository.isFindNameExists(menuInfo.name);
+        if (foundMenuName) throw new RequestError("이미 사용중인 이름입니다.");
+        const createdMenu = await this.menuRepository.create(menuInfo);
+        return createdMenu;
     }
 
-    updateMenu(menuId: string, menuInfo: IMenu) {
-        return this.menuRepository.update(menuId, menuInfo);
+    async updateMenu(menuId: string, menuInfo: IMenu) {
+        const updatedMenu = await this.menuRepository.update(menuId, menuInfo);
+        if (!updatedMenu) throw new RequestError("메뉴 정보를 찾을 수 없습니다.");
+        return updatedMenu;
     }
 
-    deleteMenu(menuId: string) {
-        return this.menuRepository.delete(menuId);
+    async deleteMenu(menuId: string) {
+        const deletedMenu = await this.menuRepository.delete(menuId);
+        if (!deletedMenu) throw new RequestError("메뉴 정보를 찾을 수 없습니다.");
+        return deletedMenu;
     }
 }

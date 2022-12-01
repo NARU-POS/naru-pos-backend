@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
+import { UserService } from "@src/service";
 import { IUser, USER_ROLE } from "@src/interfaces";
-import { UserService } from "@src/service/user.service";
 import { RequestError } from "@src/middlewares/errorHandler";
 import { STATUS_400_BADREQUEST } from "@src/utils/statusCode";
 
@@ -30,14 +30,14 @@ describe("USER SERVICE LOGIC", () => {
         );
         expect(foundUser.loginId).toEqual(mockUser.loginId);
         expect(foundUser.password).toBeUndefined();
-        expect(foundUser.role).toEqual(mockUser.role);
+        // 회원가입 & 수정으로 권한 변경 불가
+        expect(foundUser.role).toEqual(USER_ROLE.GUEST);
     });
 
     it("유저가 회원가입에 성공하면 유저 정보를 반환한다.", async () => {
         expect(mockCreated.data).toHaveProperty("_id");
         expect(mockCreated.data?.loginId).toEqual(mockUser.loginId);
         expect(mockCreated.data?.password).toBeUndefined();
-        expect(mockCreated.data?.role).toEqual(mockUser.role);
     });
 
     it("유저가 로그인에 성공하면 token을 발급한다.", async () => {
@@ -53,7 +53,6 @@ describe("USER SERVICE LOGIC", () => {
         );
         expect(updatedUser.loginId).toEqual(mockUpdateUser.loginId);
         expect(updatedUser.password).toBeUndefined();
-        expect(updatedUser.role).toEqual(mockUpdateUser.role);
     });
 
     it("유저 정보를 삭제한다.", async () => {
