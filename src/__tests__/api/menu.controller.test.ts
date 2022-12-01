@@ -37,7 +37,7 @@ describe("MENU API", () => {
 
     const mockCreated: { data?: IMenu } = {};
     beforeEach(async () => {
-        mockCreated.data = await mockService.addMenu(mockMenu);
+        mockCreated.data = await mockService.createMenu(mockMenu);
     });
 
     it("MENU GET /menus/category 메뉴 카테고리 목록을 응답받는다.", async () => {

@@ -37,7 +37,7 @@ class MenuController {
     }
 
     async createMenu(req: Request, res: Response, _next: NextFunction) {
-        const createdMenu = await this.menuService.addMenu(req.body);
+        const createdMenu = await this.menuService.createMenu(req.body);
         res.status(STATUS_201_CREATED).json(createdMenu);
     }
 

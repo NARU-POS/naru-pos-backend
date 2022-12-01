@@ -21,7 +21,10 @@ export class MenuService {
         }, {} as VisualizationCategory);
     }
 
-    addMenu(menuInfo: IMenu) {
+    /**
+     * TODO createMenu, updateMenu, deleteMenu 에러 핸들링
+     */
+    createMenu(menuInfo: IMenu) {
         return this.menuRepository.create(menuInfo);
     }
 

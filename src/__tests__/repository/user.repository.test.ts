@@ -1,5 +1,5 @@
-import { UserRepository } from "@src/repository/user.repository";
-import { IUser, USER_ROLE } from "@src/interfaces/user.interface";
+import { UserRepository } from "@src/repository";
+import { IUser, USER_ROLE } from "@src/interfaces";
 
 describe("USER REPOSITORY", () => {
     const mockRepository = new UserRepository();
@@ -26,8 +26,24 @@ describe("USER REPOSITORY", () => {
             mockCreated?.data?._id?.toString() as string,
         );
         expect(foundOneUser?.loginId).toEqual(mockUser.loginId);
-        expect(foundOneUser?.password).toEqual("password");
+        expect(foundOneUser?.password).toBeUndefined();
         expect(foundOneUser?.role).toEqual(mockUser.role);
+    });
+
+    it("USER findByLoginId", async () => {
+        const foundLoginId = await mockRepository.findByLoginId(
+            mockCreated?.data?.loginId as string,
+        );
+        expect(foundLoginId?.loginId).toEqual(mockUser.loginId);
+        expect(foundLoginId).toHaveProperty("password");
+        expect(foundLoginId?.role).toEqual(mockUser.role);
+    });
+
+    it("USER isLoginIdExists", async () => {
+        const mockTrueExists = await mockRepository.isLoginIdExists(mockUser.loginId);
+        const mockFalseExists = await mockRepository.isLoginIdExists("test");
+        expect(mockTrueExists).toHaveProperty("_id");
+        expect(mockFalseExists).toBe(null);
     });
 
     it("USER create", async () => {
@@ -43,7 +59,7 @@ describe("USER REPOSITORY", () => {
             mockUpdateUser,
         );
         expect(updatedUser?.loginId).toEqual(mockUpdateUser.loginId);
-        expect(updatedUser?.password).toEqual(mockUpdateUser.password);
+        expect(updatedUser?.password).toBeUndefined();
         expect(updatedUser?.role).toEqual(mockUpdateUser.role);
     });
 
@@ -52,7 +68,7 @@ describe("USER REPOSITORY", () => {
             mockCreated?.data?._id?.toString() as string,
         );
         expect(deletedUser?.loginId).toEqual(mockUser.loginId);
-        expect(deletedUser?.password).toEqual(mockUser.password);
+        expect(deletedUser?.password).toBeUndefined();
         expect(deletedUser?.role).toEqual(mockUser.role);
     });
 });

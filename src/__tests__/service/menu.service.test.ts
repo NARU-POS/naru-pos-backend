@@ -33,7 +33,7 @@ describe("MENU SERVICE LOGIC", () => {
 
     const mockCreated: { data?: IMenu } = {};
     beforeEach(async () => {
-        mockCreated.data = await mockService.addMenu(mockMenu);
+        mockCreated.data = await mockService.createMenu(mockMenu);
     });
 
     it("카테고리에 맞는 메뉴를 반환한다.", async () => {
