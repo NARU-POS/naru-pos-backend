@@ -21,7 +21,7 @@ const doc = {
     ],
     definitions: {
         requestToken:
-            "bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg5ODhlZmU5Y2FhMTg0NTk3MTcwNWQiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE2Njk5NTgwNDMsImlzcyI6Im5hcnUuaGFuZHdvb25nLmNvbSJ9.MVyLAeM_P3LcaILqzCPSohlYdNqB95ZmzmWMCeukKRwSiLyVZCR-9hvCgZzbBIvCqxgtauyardpNtIqc_DoLt0IBLaMCqFGPtAGNk8D2svU7ZY7rCrA6bQJhKkehEfqvDaR99m5x50kPU4Po_L5aeFIJN7V1LC0aozipsFlF6h0",
+            "bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg5OThjYzhmNzBmM2E4M2ViNmU0ZmEiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE2Njk5NjE5NTEsImlzcyI6Im5hcnUuaGFuZHdvb25nLmNvbSJ9.biwq4RUiOhCwymqoBu3d29tsvqmFcyRIwlgpUBhVBcSy1k82Wi5Qm7T7YyeU3NdNI1_8r2R5MEuPa7r-CcWBGFfE-3wn_Gt_-xHdikRs9_H56xRuvsexqDb-P3E0F4jQBZGF_h6E9Ybi1PRUkZWzw3xkq2gLiiP1IJRg_NxgiUI",
         unauthorization: { message: "로그인이 필요한 서비스입니다." },
         forbidden: {
             message: "접근 권한이 없습니다.",
@@ -137,7 +137,7 @@ const doc = {
             password: "secret",
         },
         loginUserResponse: {
-            token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg5ODhlZmU5Y2FhMTg0NTk3MTcwNWQiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE2Njk5NTgwNDMsImlzcyI6Im5hcnUuaGFuZHdvb25nLmNvbSJ9.MVyLAeM_P3LcaILqzCPSohlYdNqB95ZmzmWMCeukKRwSiLyVZCR-9hvCgZzbBIvCqxgtauyardpNtIqc_DoLt0IBLaMCqFGPtAGNk8D2svU7ZY7rCrA6bQJhKkehEfqvDaR99m5x50kPU4Po_L5aeFIJN7V1LC0aozipsFlF6h0",
+            token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg5OThjYzhmNzBmM2E4M2ViNmU0ZmEiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE2Njk5NjE5NTEsImlzcyI6Im5hcnUuaGFuZHdvb25nLmNvbSJ9.biwq4RUiOhCwymqoBu3d29tsvqmFcyRIwlgpUBhVBcSy1k82Wi5Qm7T7YyeU3NdNI1_8r2R5MEuPa7r-CcWBGFfE-3wn_Gt_-xHdikRs9_H56xRuvsexqDb-P3E0F4jQBZGF_h6E9Ybi1PRUkZWzw3xkq2gLiiP1IJRg_NxgiUI",
         },
         putUserRequest: {
             loginId: "naru",
