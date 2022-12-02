@@ -8,15 +8,24 @@ const doc = {
     host: "localhost:5001",
     schemes: ["http"],
     securityDefinitions: {
-        accessToken: {
+        token: {
             type: "apiKey",
             in: "header",
-            name: "NARU-API-KEY", // name of the header, query parameter or cookie
+            name: "authorization",
             description: "Naru AccessToken",
         },
     },
-    tags: [{ name: "menu", description: "나루 레스토랑 메뉴 API" }],
+    tags: [
+        { name: "menu", description: "나루 레스토랑 메뉴 API" },
+        { name: "user", description: "사용자 API" },
+    ],
     definitions: {
+        requestToken:
+            "bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg5OThjYzhmNzBmM2E4M2ViNmU0ZmEiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE2Njk5NjE5NTEsImlzcyI6Im5hcnUuaGFuZHdvb25nLmNvbSJ9.biwq4RUiOhCwymqoBu3d29tsvqmFcyRIwlgpUBhVBcSy1k82Wi5Qm7T7YyeU3NdNI1_8r2R5MEuPa7r-CcWBGFfE-3wn_Gt_-xHdikRs9_H56xRuvsexqDb-P3E0F4jQBZGF_h6E9Ybi1PRUkZWzw3xkq2gLiiP1IJRg_NxgiUI",
+        unauthorization: { message: "로그인이 필요한 서비스입니다." },
+        forbidden: {
+            message: "접근 권한이 없습니다.",
+        },
         getMenuCategoryResponse: {
             stake: ["unused"],
             pizza: ["unused"],
@@ -112,6 +121,40 @@ const doc = {
                 __v: 0,
             },
             message: "삭제가 완료되었습니다.",
+        },
+        postUserRequest: {
+            loginId: "naru",
+            password: "secret",
+        },
+        postUserResponse: {
+            loginId: "naru",
+            role: "guest",
+            _id: "638988efe9caa1845971705d",
+            __v: 0,
+        },
+        loginUserRequest: {
+            loginId: "naru",
+            password: "secret",
+        },
+        loginUserResponse: {
+            token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg5OThjYzhmNzBmM2E4M2ViNmU0ZmEiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE2Njk5NjE5NTEsImlzcyI6Im5hcnUuaGFuZHdvb25nLmNvbSJ9.biwq4RUiOhCwymqoBu3d29tsvqmFcyRIwlgpUBhVBcSy1k82Wi5Qm7T7YyeU3NdNI1_8r2R5MEuPa7r-CcWBGFfE-3wn_Gt_-xHdikRs9_H56xRuvsexqDb-P3E0F4jQBZGF_h6E9Ybi1PRUkZWzw3xkq2gLiiP1IJRg_NxgiUI",
+        },
+        putUserRequest: {
+            loginId: "naru",
+            password: "importantsecret",
+        },
+        putUserResponse: {
+            _id: "638988efe9caa1845971705d",
+            loginId: "naru",
+            role: "guest",
+            __v: 0,
+        },
+        deleteUserResponse: { message: "회원탈퇴에 성공하였습니다." },
+        currentUserResponse: {
+            _id: "638988efe9caa1845971705d",
+            loginId: "naru",
+            role: "guest",
+            __v: 0,
         },
     },
 };

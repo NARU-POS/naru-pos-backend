@@ -53,6 +53,13 @@ describe("MENU REPOSITORY", () => {
         expect(foundMenuList[0]).toHaveProperty("detailCategory");
     });
 
+    it("MENU findByName", async () => {
+        const mockTrueExists = await mockRepository.isFindNameExists(mockMenu.name);
+        const mockFalseExists = await mockRepository.isFindNameExists("test");
+        expect(mockTrueExists).toHaveProperty("_id");
+        expect(mockFalseExists).toBe(null);
+    });
+
     it("MENU create", async () => {
         expect(mockCreated.data).toHaveProperty("_id");
         expect(mockCreated.data).toMatchObject(mockMenu);

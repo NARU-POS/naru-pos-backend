@@ -1,6 +1,8 @@
 import { MenuService } from "@src/service";
 import wrapAsyncFunc from "@src/utils/catchAsync";
+import { permission } from "@src/middlewares/authRequired";
 import { ICategory } from "@src/interfaces/menu.interface";
+import { authRequired } from "@src/middlewares/authRequired";
 import { NextFunction, Request, Response, Router } from "express";
 import { STATUS_200_OK, STATUS_201_CREATED } from "@src/utils/statusCode";
 import { bodyValidator, paramsValidator } from "@src/middlewares/requestValidator";
@@ -17,9 +19,9 @@ class MenuController {
     constructor() {
         this.getCategory = this.getCategory.bind(this);
         this.getCategoryMenu = this.getCategoryMenu.bind(this);
-        this.createMenu = this.createMenu.bind(this);
-        this.editMenu = this.editMenu.bind(this);
-        this.deleteMenu = this.deleteMenu.bind(this);
+        this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     async getCategory(_req: Request, res: Response, _next: NextFunction) {
@@ -36,18 +38,18 @@ class MenuController {
         res.status(STATUS_200_OK).json(foundCategoryMenu);
     }
 
-    async createMenu(req: Request, res: Response, _next: NextFunction) {
-        const createdMenu = await this.menuService.addMenu(req.body);
+    async create(req: Request, res: Response, _next: NextFunction) {
+        const createdMenu = await this.menuService.createMenu(req.body);
         res.status(STATUS_201_CREATED).json(createdMenu);
     }
 
-    async editMenu(req: Request, res: Response, _next: NextFunction) {
+    async update(req: Request, res: Response, _next: NextFunction) {
         const { menuId } = req.params;
         const updatedMenu = await this.menuService.updateMenu(menuId, req.body);
         res.status(STATUS_200_OK).json(updatedMenu);
     }
 
-    async deleteMenu(req: Request, res: Response, _next: NextFunction) {
+    async delete(req: Request, res: Response, _next: NextFunction) {
         const { menuId } = req.params;
         const deletedMenu = await this.menuService.deleteMenu(menuId);
         res.status(STATUS_200_OK).json({ deletedMenu, message: "삭제가 완료되었습니다." });
@@ -100,11 +102,25 @@ menuController.get(
 );
 menuController.post(
     "/menus",
+    authRequired,
+    permission,
     bodyValidator(menuBodySchema),
     wrapAsyncFunc(
         /*
             #swagger.tags = ["menu"]
             #swagger.description = "메뉴 생성"
+            #swagger.security = [{
+                "token": []
+            }]
+            #swagger.parameters["authorization"] = {
+                in: "header",
+                description: "
+                    사용자의 accessToken을 예제와 같이 header에 담아 요청\n
+                    권한 : **ADMIN** 이상 필요
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/requestToken" }
+            }
             #swagger.parameters["body"] = {
                 in: "body",
                 description: "
@@ -118,18 +134,40 @@ menuController.post(
                 schema: { $ref: "#/definitions/postMenuResponse" },
                 description: "생성된 메뉴 정보를 반환"
             }
+            #swagger.responses[401] = {
+                schema: { $ref: "#/definitions/unauthorization" },
+                description: "로그인 필요"
+            }
+            #swagger.responses[403] = {
+                schema: { $ref: "#/definitions/forbidden" },
+                description: "권한 필요"
+            }
          */
-        menu.createMenu,
+        menu.create,
     ),
 );
 menuController.put(
     "/menus/:menuId",
+    authRequired,
+    permission,
     paramsValidator(menuIdSchema),
     bodyValidator(menuPutBodySchema),
     wrapAsyncFunc(
         /*
             #swagger.tags = ["menu"]
             #swagger.description = "메뉴 수정"
+            #swagger.security = [{
+                "token": []
+            }]
+            #swagger.parameters["authorization"] = {
+                in: "header",
+                description: "
+                    사용자의 accessToken을 예제와 같이 header에 담아 요청\n
+                    권한 : **ADMIN** 이상 필요
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/requestToken" }
+            }
             #swagger.parameters["menuId"] = {
                 in: "path",
                 description: "수정하고자 하는 메뉴의 Id를 Request Path에 담아 요청",
@@ -149,16 +187,38 @@ menuController.put(
                 schema: { $ref: "#/definitions/putMenuResponse" },
                 description: "수정된 메뉴 정보를 반환"
             }
+            #swagger.responses[401] = {
+                schema: { $ref: "#/definitions/unauthorization" },
+                description: "로그인 필요"
+            }
+            #swagger.responses[403] = {
+                schema: { $ref: "#/definitions/forbidden" },
+                description: "권한 필요"
+            }
          */
-        menu.editMenu,
+        menu.update,
     ),
 );
 menuController.delete(
     "/menus/:menuId",
+    authRequired,
+    permission,
     paramsValidator(menuIdSchema),
     wrapAsyncFunc(
         /*  #swagger.tags = ["menu"]
             #swagger.description = "메뉴 삭제"
+            #swagger.security = [{
+                "token": []
+            }]
+            #swagger.parameters["authorization"] = {
+                in: "header",
+                description: "
+                    사용자의 accessToken을 예제와 같이 header에 담아 요청\n
+                    권한 : **ADMIN** 이상 필요
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/requestToken" }
+            }
             #swagger.parameters["menuId"] = {
                 in: "path",
                 description: "삭제하고자 하는 메뉴의 Id를 Request Path에 담아 요청",
@@ -169,8 +229,16 @@ menuController.delete(
                 schema: { "$ref": "#/definitions/deleteMenuResponse" },
                 description: "삭제 메시지 및 삭제된 데이터 반환"
             }
+            #swagger.responses[401] = {
+                schema: { $ref: "#/definitions/unauthorization" },
+                description: "로그인 필요"
+            }
+            #swagger.responses[403] = {
+                schema: { $ref: "#/definitions/forbidden" },
+                description: "권한 필요"
+            }
         */
-        menu.deleteMenu,
+        menu.delete,
     ),
 );
 
