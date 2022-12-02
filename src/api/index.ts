@@ -17,7 +17,11 @@ const indexController = (app: Express) => {
     app.get("/", (_req, res) => {
         res.status(STATUS_200_OK).json({ message: "Naru POS backend" });
     });
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+    app.use(
+        "/api-docs",
+        swaggerUi.serve,
+        swaggerUi.setup(swaggerFile, { swaggerOptions: { persistAuthorization: true } }),
+    );
     app.use("*", (_req, _res) => {
         throw new RequestError("요청하신 페이지를 찾을 수 없습니다.", STATUS_404_NOTFOUND);
     });

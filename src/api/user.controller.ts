@@ -49,19 +49,156 @@ class UserController {
 const userController = Router();
 const user = new UserController();
 
-/**
- * TODO Swagger 작성
- * TODO request 유효성 검사
- */
-userController.get("/users/current", authRequired, wrapAsyncFunc(user.getCurrentUser));
-userController.post("/users/login", bodyValidator(userLoginSchema), wrapAsyncFunc(user.login));
-userController.post("/users/register", bodyValidator(userLoginSchema), wrapAsyncFunc(user.create));
+userController.get(
+    "/users/current",
+    authRequired,
+    wrapAsyncFunc(
+        /*
+            #swagger.tags = ["user"]
+            #swagger.description = "현재 로그인 되어 있는 유저의 정보를 조회"
+            #swagger.security = [{
+                "token": []
+            }]
+            #swagger.parameters["authorization"] = {
+                in: "header",
+                description: "
+                    사용자의 accessToken을 예제와 같이 header에 담아 요청\n
+                    권한 : **GUEST** 이상 필요
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/requestToken" }
+            }
+            #swagger.responses[200] = {
+                schema: { $ref: "#/definitions/currentUserResponse" },
+                description: "현재 로그인 되어 있는 유저의 정보를 반환"
+            }
+            #swagger.responses[401] = {
+                schema: { $ref: "#/definitions/unauthorization" },
+                description: "로그인 필요"
+            }
+         */
+        user.getCurrentUser,
+    ),
+);
+userController.post(
+    "/users/login",
+    bodyValidator(userLoginSchema),
+    wrapAsyncFunc(
+        /*
+            #swagger.tags = ["user"]
+            #swagger.description = "유저 로그인"
+            #swagger.parameters["body"] = {
+                in: "body",
+                description: "
+                    로그인하고자 하는 유저의 정보를 Request Body에 담아 요청\n
+                    아래 예제에 있는 필드는 필수로 보내야 함
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/loginUserRequest" }
+            }
+            #swagger.responses[200] = {
+                schema: { $ref: "#/definitions/loginUserResponse" },
+                description: "로그인 한 유저의 토큰을 발급"
+            }
+         */
+        user.login,
+    ),
+);
+userController.post(
+    "/users/register",
+    bodyValidator(userLoginSchema),
+    wrapAsyncFunc(
+        /*
+            #swagger.tags = ["user"]
+            #swagger.description = "유저 생성"
+            #swagger.parameters["body"] = {
+                in: "body",
+                description: "
+                    생성하고자 하는 유저의 정보를 Request Body에 담아 요청\n
+                    아래 예제에 있는 필드는 필수로 보내야 함
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/postUserRequest" }
+            }
+            #swagger.responses[200] = {
+                schema: { $ref: "#/definitions/postUserResponse" },
+                description: "생성된 유저 정보를 반환"
+            }
+         */
+        user.create,
+    ),
+);
 userController.put(
     "/users",
     authRequired,
     bodyValidator(userLoginSchema),
-    wrapAsyncFunc(user.update),
+    wrapAsyncFunc(
+        /*
+            #swagger.tags = ["user"]
+            #swagger.description = "유저 정보 수정"
+            #swagger.security = [{
+                "token": []
+            }]
+            #swagger.parameters["authorization"] = {
+                in: "header",
+                description: "
+                    사용자의 accessToken을 예제와 같이 header에 담아 요청\n
+                    권한 : **GUEST** 이상 필요
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/requestToken" }
+            }
+            #swagger.parameters["body"] = {
+                in: "body",
+                description: "
+                    수정하고자 하는 유저의 정보를 Request Body에 담아 요청\n
+                    아래 예제에 있는 필드는 필수로 보내야 함
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/putUserRequest" }
+            }
+            #swagger.responses[200] = {
+                schema: { $ref: "#/definitions/putUserResponse" },
+                description: "수정된 유저 정보를 반환"
+            }
+            #swagger.responses[401] = {
+                schema: { $ref: "#/definitions/unauthorization" },
+                description: "로그인 필요"
+            }
+         */
+        user.update,
+    ),
 );
-userController.delete("/users", authRequired, wrapAsyncFunc(user.delete));
+userController.delete(
+    "/users",
+    authRequired,
+    wrapAsyncFunc(
+        /*
+            #swagger.tags = ["user"]
+            #swagger.description = "유저 삭제"
+            #swagger.security = [{
+                "token": []
+            }]
+            #swagger.parameters["authorization"] = {
+                in: "header",
+                description: "
+                    사용자의 accessToken을 예제와 같이 header에 담아 요청\n
+                    권한 : **GUEST** 이상 필요
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/requestToken" }
+            }
+            #swagger.responses[200] = {
+                schema: { $ref: "#/definitions/deleteUserResponse" },
+                description: "삭제 완료 메시지를 반환"
+            }
+            #swagger.responses[401] = {
+                schema: { $ref: "#/definitions/unauthorization" },
+                description: "로그인 필요"
+            }
+         */
+        user.delete,
+    ),
+);
 
 export default userController;
