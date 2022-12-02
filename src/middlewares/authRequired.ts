@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { USER_ROLE } from "@src/interfaces";
 import { verifyToken } from "@src/utils/jwt";
 import { RequestError } from "@src/middlewares/errorHandler";
-import { STATUS_401_UNAUTHORIZED, STATUS_403_FORBIDDEN } from "@src/utils/statusCode";
+import { STATUS_401_UNAUTHORIZED } from "@src/utils/statusCode";
 
 export const authRequired: RequestHandler = (req, _res, next) => {
     const accessToken = req.headers.authorization?.split(" ")[1] ?? null;
@@ -14,9 +14,14 @@ export const authRequired: RequestHandler = (req, _res, next) => {
         throw new RequestError("인증에 실패하였습니다.", STATUS_401_UNAUTHORIZED);
     }
 
-    if (userToken.role !== USER_ROLE.ADMIN)
-        throw new RequestError("권한이 없습니다.", STATUS_403_FORBIDDEN);
-
     req.cookies.userId = userToken.userId;
+    req.cookies.role = userToken.role;
+    next();
+};
+
+export const permission: RequestHandler = (req, _res, next) => {
+    const userRole = req.cookies.role;
+
+    if (userRole !== USER_ROLE.ADMIN) throw new RequestError("접근 권한이 없습니다.");
     next();
 };

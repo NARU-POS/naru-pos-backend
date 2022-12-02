@@ -1,5 +1,6 @@
 import { MenuService } from "@src/service";
 import wrapAsyncFunc from "@src/utils/catchAsync";
+import { permission } from "@src/middlewares/authRequired";
 import { ICategory } from "@src/interfaces/menu.interface";
 import { authRequired } from "@src/middlewares/authRequired";
 import { NextFunction, Request, Response, Router } from "express";
@@ -102,6 +103,7 @@ menuController.get(
 menuController.post(
     "/menus",
     authRequired,
+    permission,
     bodyValidator(menuBodySchema),
     wrapAsyncFunc(
         /*
@@ -127,6 +129,7 @@ menuController.post(
 menuController.put(
     "/menus/:menuId",
     authRequired,
+    permission,
     paramsValidator(menuIdSchema),
     bodyValidator(menuPutBodySchema),
     wrapAsyncFunc(
@@ -159,6 +162,7 @@ menuController.put(
 menuController.delete(
     "/menus/:menuId",
     authRequired,
+    permission,
     paramsValidator(menuIdSchema),
     wrapAsyncFunc(
         /*  #swagger.tags = ["menu"]

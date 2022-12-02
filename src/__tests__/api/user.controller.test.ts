@@ -62,7 +62,7 @@ describe("USER API", () => {
 
     it("USER PUT /users/:userId 사용자 정보를 수정한다.", async () => {
         const res = await request(app)
-            .put(`/users/${mockCreated?.data?._id}`)
+            .put(`/users`)
             .set("Authorization", `Bearer ${mockCreated.token}`)
             .send(mockUpdateUser);
         expect(res.status).toBe(STATUS_200_OK);
@@ -71,7 +71,7 @@ describe("USER API", () => {
 
     it("USER DELETE /users/:userId 사용자를 삭제한다.", async () => {
         const res = await request(app)
-            .delete(`/users/${mockCreated?.data?._id}`)
+            .delete(`/users`)
             .set("Authorization", `Bearer ${mockCreated.token}`);
         expect(res.status).toBe(STATUS_200_OK);
         expect(res.body.message).toEqual("회원탈퇴에 성공하였습니다.");
