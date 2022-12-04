@@ -11,3 +11,8 @@ export enum USER_ROLE {
     GUEST = "guest",
     ADMIN = "admin",
 }
+
+export interface JWT_AUTH_DATA {
+    userId: Types.ObjectId;
+    role: USER_ROLE;
+}

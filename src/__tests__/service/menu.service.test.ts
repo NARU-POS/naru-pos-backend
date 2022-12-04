@@ -1,9 +1,14 @@
 import { Types } from "mongoose";
 import { MenuService } from "@src/service";
-import { ICategory } from "@src/interfaces/menu.interface";
 import { RequestError } from "@src/middlewares/errorHandler";
 import { STATUS_400_BADREQUEST } from "@src/utils/statusCode";
-import { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/interfaces";
+import {
+    IMenu,
+    ICategory,
+    MENU_CATEGORY,
+    MENU_DETAIL_CATEGORY,
+    MENU_STATUS,
+} from "@src/interfaces";
 
 describe("MENU SERVICE LOGIC", () => {
     const mockService = new MenuService();

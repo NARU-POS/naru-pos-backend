@@ -3,8 +3,19 @@ import {
     MENU_CATEGORY,
     MENU_DETAIL_CATEGORY,
     MENU_STATUS,
+    ICategory,
+    IFindCategory,
+    VisualizationCategory,
 } from "@src/interfaces/menu.interface";
-import { IUser, USER_ROLE } from "@src/interfaces/user.interface";
+import { IUser, USER_ROLE, JWT_AUTH_DATA } from "@src/interfaces/user.interface";
 
-export { IMenu, MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS };
-export { IUser, USER_ROLE };
+export {
+    IMenu,
+    ICategory,
+    IFindCategory,
+    MENU_CATEGORY,
+    MENU_DETAIL_CATEGORY,
+    MENU_STATUS,
+    VisualizationCategory,
+};
+export { IUser, USER_ROLE, JWT_AUTH_DATA };

@@ -18,6 +18,10 @@ export interface ICategory {
     detailCategory: MENU_DETAIL_CATEGORY;
 }
 
+export interface IFindCategory extends Omit<ICategory, "detailCategory"> {
+    detailCategory: MENU_DETAIL_CATEGORY[];
+}
+
 export enum MENU_CATEGORY {
     STAKE = "stake",
     PIZZA = "pizza",
@@ -40,7 +44,7 @@ export enum MENU_DETAIL_CATEGORY {
     HOT = "hot",
 }
 
-export type VisualizationCategory = { [key in MENU_CATEGORY]: string[] };
+export type VisualizationCategory = { [key in MENU_CATEGORY]: MENU_DETAIL_CATEGORY[] };
 
 export enum MENU_STATUS {
     UNUSED = "unused",

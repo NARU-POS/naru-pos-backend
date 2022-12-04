@@ -1,7 +1,7 @@
 import { MenuService } from "@src/service";
+import { ICategory } from "@src/interfaces";
 import wrapAsyncFunc from "@src/utils/catchAsync";
 import { permission } from "@src/middlewares/authRequired";
-import { ICategory } from "@src/interfaces/menu.interface";
 import { authRequired } from "@src/middlewares/authRequired";
 import { NextFunction, Request, Response, Router } from "express";
 import { STATUS_200_OK, STATUS_201_CREATED } from "@src/utils/statusCode";

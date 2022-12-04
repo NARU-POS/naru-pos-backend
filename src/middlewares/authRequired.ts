@@ -20,7 +20,7 @@ export const authRequired: RequestHandler = (req, _res, next) => {
 };
 
 export const permission: RequestHandler = (req, _res, next) => {
-    const userRole = req.cookies.role;
+    const userRole: USER_ROLE = req.cookies.role;
 
     if (userRole !== USER_ROLE.ADMIN)
         throw new RequestError("접근 권한이 없습니다.", STATUS_403_FORBIDDEN);

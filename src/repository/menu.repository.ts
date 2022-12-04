@@ -1,6 +1,7 @@
 import { MenuModel } from "@src/db";
-import { IMenu } from "@src/interfaces";
-import { ICategory } from "@src/interfaces/menu.interface";
+import { IFindCategory, IMenu } from "@src/interfaces";
+import { ICategory } from "@src/interfaces";
+import { Aggregate } from "mongoose";
 
 export class MenuRepository {
     private readonly menuModel = MenuModel;
@@ -13,7 +14,7 @@ export class MenuRepository {
         return this.menuModel.exists({ name: menuName }).exec();
     }
 
-    findByCategory() {
+    findByCategory(): Aggregate<IFindCategory[]> {
         return this.menuModel.aggregate([
             {
                 $group: {

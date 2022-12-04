@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
-import { USER_ROLE } from "@src/interfaces";
+import { USER_ROLE, JWT_AUTH_DATA } from "@src/interfaces";
 
 /* istanbul ignore next */
 const secretKey = process.env.JWT_SECRET_KEY || "JWT_TOKEN";
@@ -14,9 +14,9 @@ export const createAccessToken = (userId: Types.ObjectId, role: USER_ROLE) => {
     });
 };
 
-export const verifyToken = (token: string) => {
+export const verifyToken = (token: string): JWT_AUTH_DATA => {
     try {
-        return jwt.verify(token, publicKey);
+        return jwt.verify(token, publicKey) as JWT_AUTH_DATA;
     } catch (error: any) {
         return error;
     }

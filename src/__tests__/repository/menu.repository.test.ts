@@ -1,6 +1,6 @@
 import { MenuModel } from "@src/db";
 import { MenuRepository } from "@src/repository";
-import { ICategory, IMenu } from "@src/interfaces/menu.interface";
+import { ICategory, IMenu } from "@src/interfaces";
 import { MENU_CATEGORY, MENU_DETAIL_CATEGORY, MENU_STATUS } from "@src/interfaces";
 
 describe("MENU REPOSITORY", () => {

@@ -76,7 +76,7 @@ export const logger = winston.createLogger({
 });
 
 export const stream = {
-    write: (message: any) => {
+    write: (message: string) => {
         logger.http(message);
     },
 };

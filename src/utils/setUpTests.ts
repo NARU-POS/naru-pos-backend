@@ -33,14 +33,15 @@ export const mockNext = (): NextFunction => {
     return next as NextFunction;
 };
 
-beforeEach(async () => {
-    if (process.env.NODE_ENV === "test") {
-        const mongoServer = await MongoMemoryServer.create();
-        await mongoose.connect(mongoServer.getUri());
-        await mongoose.connection.db.dropDatabase();
-    }
+beforeAll(async () => {
+    const mongoServer = await MongoMemoryServer.create();
+    await mongoose.connect(mongoServer.getUri());
 });
 
-afterEach(async () => {
+beforeEach(async () => {
+    await mongoose.connection.db.dropDatabase();
+});
+
+afterAll(async () => {
     await mongoose.disconnect();
 });
