@@ -1,3 +1,4 @@
+import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage, Options } from "multer-storage-cloudinary";
 
@@ -23,5 +24,6 @@ const multerOpts: cloudinaryOptions = {
 };
 
 const storage = new CloudinaryStorage(multerOpts);
+const upload = multer({ storage });
 
-export { cloudinary, storage };
+export { cloudinary, upload };

@@ -1,8 +1,10 @@
 import { MenuService } from "@src/service";
 import { ICategory } from "@src/interfaces";
+import { upload } from "@src/utils/imageUpload";
 import wrapAsyncFunc from "@src/utils/catchAsync";
 import { permission } from "@src/middlewares/authRequired";
 import { authRequired } from "@src/middlewares/authRequired";
+import { RequestError } from "@src/middlewares/errorHandler";
 import { NextFunction, Request, Response, Router } from "express";
 import { STATUS_200_OK, STATUS_201_CREATED } from "@src/utils/statusCode";
 import { bodyValidator, paramsValidator } from "@src/middlewares/requestValidator";
@@ -41,6 +43,11 @@ class MenuController {
     async create(req: Request, res: Response, _next: NextFunction) {
         const createdMenu = await this.menuService.createMenu(req.body);
         res.status(STATUS_201_CREATED).json(createdMenu);
+    }
+
+    async uploadImage(req: Request, res: Response, _next: NextFunction) {
+        if (!req.file) throw new RequestError("이미지 업로드에 실패하였습니다.");
+        res.status(STATUS_200_OK).json(req.file.path);
     }
 
     async update(req: Request, res: Response, _next: NextFunction) {
@@ -144,6 +151,50 @@ menuController.post(
             }
          */
         menu.create,
+    ),
+);
+menuController.post(
+    "/menus/uploadImage",
+    authRequired,
+    permission,
+    upload.single("menuImage"),
+    wrapAsyncFunc(
+        /*
+            #swagger.tags = ["menu"]
+            #swagger.description = "메뉴 이미지 업로드"
+            #swagger.security = [{
+                "token": []
+            }]
+            #swagger.parameters["authorization"] = {
+                in: "header",
+                description: "
+                    사용자의 accessToken을 예제와 같이 header에 담아 요청\n
+                    권한 : **ADMIN** 이상 필요
+                ",
+                required: true,
+                schema: { $ref: "#/definitions/requestToken" }
+            }
+            #swagger.consumes = ["multipart/form-data"]
+            #swagger.parameters['menuImage'] = {
+                in: "formData",
+                type: "file",
+                required: "true",
+                description: "메뉴 이미지를 formData에 담아 요청",
+            }
+            #swagger.responses[200] = {
+                schema: { $ref: "#/definitions/getMenuImageURL" },
+                description: "업로드된 이미지 URL을 반환"
+            }
+            #swagger.responses[401] = {
+                schema: { $ref: "#/definitions/unauthorization" },
+                description: "로그인 필요"
+            }
+            #swagger.responses[403] = {
+                schema: { $ref: "#/definitions/forbidden" },
+                description: "권한 필요"
+            }
+         */
+        menu.uploadImage,
     ),
 );
 menuController.put(

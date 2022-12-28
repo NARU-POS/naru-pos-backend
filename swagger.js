@@ -149,6 +149,8 @@ const doc = {
             role: "guest",
             __v: 0,
         },
+        getMenuImageURL:
+            "https://res.cloudinary.com/dcahduceu/image/upload/v1669373704/naru/saladpizza_aecfke.jpg",
         deleteUserResponse: { message: "회원탈퇴에 성공하였습니다." },
         currentUserResponse: {
             _id: "638988efe9caa1845971705d",
